@@ -111,6 +111,15 @@
                     </tr>
                 </table>
             </div>
+            <div id="blog-posts" class="container-fluid">
+                {% for post in posts %}
+                    <div class="container text-center">
+                        <p>published: {{ post.published_date }}</p>
+                        <h3><a href="">{{ post.title }}</a></h3>
+                        <p>{{ post.text|linebreaksbr }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </body>
 </html>
