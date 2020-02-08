@@ -22,33 +22,19 @@ class Post(models.Model):
 class Member(models.Model):
     cid = models.IntegerField(unique=True, null=False)
     name = models.CharField(max_length=80)
-
+    callsign = models.CharField(max_length=40)
     objects = Manager()
 
     def __str__(self):
-        return self.cid
+        return self.cid+self.callsign
 
-class ATCConnection(models.Model):
-    callsign = models.CharField(max_length=40)
-    name = models.ForeignKey(Member, on_delete=models.CASCADE)
-    rating = models.IntegerField()
+class ATCConnection(Member):
+    frequency = models.IntegerField()
 
-    objects = Manager()
 
-    def __str__(self):
-        return self.callsign
-
-class PilotConnection(models.Model):
-    callsign = models.CharField(max_length=40)
-    name = models.ForeignKey(Member, on_delete=models.CASCADE)
-    altitude = models.IntegerField()
+class PilotConnection(Member):
     origin = models.CharField(max_length=4, default="-")
     destination = models.CharField(max_length=4, default="-")
-
-    objects = Manager()
-
-    def __str__(self):
-        return self.callsign
 
 class Event(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -58,6 +44,7 @@ class Event(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
     event_text = models.TextField()
     active = True
+    objects = Manager()
     def __str__(self):
         return self.title
     def publish(self):

@@ -80,6 +80,15 @@
                     <th><i class="material-icons" style="font-size:11px;color: rgb(110, 146, 253);">flight_takeoff</i> From</th>
                     <th><i class="material-icons" style="font-size:11px;color: rgb(110, 146, 253);">flight_land</i> To </th>
                 </tr>
+                {% for pilot in online_pilots %}
+                    <tr>
+                        <td>{{ pilot.cid }}</td>
+                        <td>{{ pilot.name }}</td>
+                        <td>{{ pilot.callsign }}</td>
+                        <td>{{ pilot.departure }}</td>
+                        <td>{{ pilot.arrival }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
         <div class="container-md col-sm-6 text-center table-responsive">
@@ -90,6 +99,14 @@
                     <th><i class="material-icons" style="font-size:11px;color: rgb(110, 146, 253);">gps_fixed</i> Callsign</th>
                     <th><i class="material-icons" style="font-size:11px;color: rgb(110, 146, 253);">headset_mic</i> Frequency</th>
                 </tr>
+                {% for atc in online_atc %}
+                    <tr>
+                        <td>{{ atc.cid }}</td>
+                        <td>{{ atc.name }}</td>
+                        <td>{{ atc.callsign }}</td>
+                        <td>{{ atc.frequency }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
