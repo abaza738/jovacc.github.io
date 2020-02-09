@@ -8,7 +8,7 @@
     {% for event in events %}
         <h2 class="jumbotron jumbotron-fluid" style="font-weight: 800;">{{ event.title }}</h2>
         <h4>{{ event.event_date }}</h4>
-        <img src="{{ event.banner|safe }}" height="300px">
+        <img src="{{ event.banner.url|safe }}" height="300px">
         <p>
             {{ event.description|safe }}
         </p>
