@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="jumbotron jumbotron-fluid text-center">
+    <h1>Jordan vACC Staff</h1>
+</div>
+<div class="container-md contain-fluid text-center table-responsive">
+    <table class="table table-dark table-hover">
+        <tr>
+            <th>VATSIM CID</th>
+            <th>Name</th>
+            <th>Staff Position</th>
+            <th>Contact</th>
+        </tr>
+        {% for guy in staff_list %}
+            <tr>
+                <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ guy.cid }}">{{ guy.cid }}</a></td>
+                <td><strong>{{ guy.name }}</strong></td>
+                <td>{{ guy.position }}</td>
+                <td><a class="vatsim-stats" href="mailto::{{ guy.email }}">Email</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

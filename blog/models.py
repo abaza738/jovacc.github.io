@@ -36,6 +36,10 @@ class PilotConnection(Member):
     origin = models.CharField(max_length=4, default="-")
     destination = models.CharField(max_length=4, default="-")
 
+class Staff(Member):
+    position = models.CharField(max_length=42, default="-")
+    email = models.EmailField()
+
 class Event(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=42)

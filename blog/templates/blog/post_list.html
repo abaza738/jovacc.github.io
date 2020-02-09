@@ -84,7 +84,7 @@
                     <tr>
                         <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ pilot.cid }}">{{ pilot.cid }}</a></td>
                         <td>{{ pilot.name }}</td>
-                        <td>{{ pilot.callsign }}</td>
+                        <td><strong>{{ pilot.callsign }}</strong></td>
                         <td>{{ pilot.departure }}</td>
                         <td>{{ pilot.arrival }}</td>
                     </tr>
@@ -103,7 +103,7 @@
                     <tr>
                         <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ atc.cid }}">{{ atc.cid }}</a></td>
                         <td>{{ atc.name }}</td>
-                        <td>{{ atc.callsign }}</td>
+                        <td><strong>{{ atc.callsign }}</strong></td>
                         <td>{{ atc.frequency }}</td>
                     </tr>
                 {% endfor %}
