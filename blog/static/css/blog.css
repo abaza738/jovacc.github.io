@@ -5,8 +5,22 @@
 .carousel-inner {
     height: 500px;
 }
+html {
+    transition: 100ms;
+}
 body {
     font-family: 'Dosis', sans-serif;
+}
+.my-icons-white {
+    font-size:inherit;
+    color:white
+}
+.my-icons-dark {
+    font-size: inherit;
+    color: rgb(110, 146, 255);
+}
+.dropdown-toggle::after {
+    content: none;
 }
 .vatsim-stats .vatsim-event {
     text-decoration: none;
@@ -25,22 +39,11 @@ body {
     text-align: center;
     margin: 2px 2px;
     text-decoration: none;
-    color: white;
+    color: rgb(45, 45, 45);
     background: transparent;
 }
 
 .fa:hover {
     opacity: 0.7;
     text-decoration: none;
-}
-
-.fa-facebook {
-    color: #3B5998;
-}
-
-.fa-twitter {
-    color: #55ACEE;
-}
-.fa-instagram {
-    color: #125688;
 }

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Post, Event, PilotConnection, ATCConnection, Member, Staff
 from django.utils import timezone
-import json, urllib, re
+import json, urllib, re, datetime
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -62,3 +62,21 @@ def staff(request):
         s.email = guy['email']
         staff_list.append(s)
     return render(request, 'staff/staff.html', {'staff_list': staff_list})
+
+def events(request):
+    events_req = urllib.request.Request('http://hq.vatme.net/api/events/vacc/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
+    events_html = urllib.request.urlopen(events_req).read()
+    events_list = json.loads(events_html)
+    events = []
+    for i in events_list:
+        if (datetime.datetime.now().timestamp() < int(i['datetime'])):
+            e = Event()
+            e.id = i['id']
+            e.title = i['name']
+            date = datetime.datetime.fromtimestamp(int(i['datetime']))
+            e.event_date = datetime.datetime.strftime(date, "%A, %B %d %Y at %H%Mz")
+            e.banner = i['bannerLink']
+            e.description = i['description']
+            events.append(e)
+        else: break
+    return render(request, 'events/events.html', {'events': events})

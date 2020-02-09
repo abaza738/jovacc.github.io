@@ -2,13 +2,15 @@
 {% load static %}
 <html>
     <head>
-        <title>Django Blog</title>
+        <title>Jordan vACC</title>
+        <link rel="icon" type="image/png" href="/static/img/logo-white.png">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> -->
         <link href="https://fonts.googleapis.com/css?family=Dosis&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -21,16 +23,19 @@
             </a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://vatame.vatme.net/vacc/OJAC" target="/"><i class="material-icons" style="font-size:11px;color:white">assignment</i> Resources</a class="nav-link">
+                    <a class="nav-link" href="https://vatame.vatme.net/vacc/OJAC" target="/"><i class="material-icons my-icons-white">assignment</i> Resources</a class="nav-link">
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons my-icons-white">flight</i> VATSIM <i class="material-icons" style="font-size:11px;color:white">keyboard_arrow_down</i></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="https://vatsim.net" target="/"><i class="material-icons my-icons-dark">flight</i> Join VATSIM</a>
+                        <div class="dropdown-divider"></div>
+                        <a class=" dropdown-item" href="staff"><i class="material-icons my-icons-dark">person</i> Staff</a>
+                        <a class="dropdown-item" href="events"><i class="material-icons my-icons-dark">event</i> Events</a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://vatsim.net" target="/"><i class="material-icons" style="font-size:11px;color:white">flight</i> VATSIM</a class="nav-link">
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="staff" target="/"><i class="material-icons" style="font-size: 11px; color:white;">person</i>Staff</a class="nav-link">
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/"><i class="material-icons" style="font-size:11px;color:white">email</i> Contact Us</a class="nav-link">
+                    <a class="nav-link" href="/"><i class="material-icons my-icons-white">email</i> Contact Us</a class="nav-link">
                 </li>
             </ul>
         </nav>
@@ -38,6 +43,7 @@
         {% endblock %}
         <footer class="jumbotron jumbotron-fluid text-center" style="margin-bottom:0">
             <p>Jordan vACC &copy; 2020</p>
-            <a href="https://facebook.com/vatsimjo" class="fa fa-facebook"></a> <a href="https://twitter.com/Jordan_vACC" class="fa fa-twitter"></a> <a href="#" class="fa fa-instagram"></a>
+            <a href="https://facebook.com/vatsimjo" class="fa fa-facebook"></a> <a href="https://twitter.com/Jordan_vACC" class="fa fa-twitter"></a> <a href="https://www.instagram.com/vatsimjordan/" class="fa fa-instagram"></a>
         </footer>
     </body>
+</html>

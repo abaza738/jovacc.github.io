@@ -43,7 +43,7 @@ class Staff(Member):
 class Event(models.Model):
     id = models.IntegerField(primary_key=True, default=None)
     title = models.CharField(max_length=42)
-    banner = models.URLField(null=True)
+    banner = models.ImageField(upload_to="img", null=True)
     event_date = models.DateTimeField(blank=True, null=True)
     # published_date = models.DateTimeField(blank=True, null=True)
     description = models.TextField()
