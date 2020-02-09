@@ -41,19 +41,13 @@ class Staff(Member):
     email = models.EmailField()
 
 class Event(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    id = models.IntegerField(primary_key=True, default=None)
     title = models.CharField(max_length=42)
-    banner = models.ImageField()
+    banner = models.URLField(null=True)
     event_date = models.DateTimeField(blank=True, null=True)
-    published_date = models.DateTimeField(blank=True, null=True)
-    event_text = models.TextField()
+    # published_date = models.DateTimeField(blank=True, null=True)
+    description = models.TextField()
     active = True
     objects = Manager()
     def __str__(self):
         return self.title
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-    def deactivate(self):
-        if self.published_date < timezone.now():
-            self.active = False

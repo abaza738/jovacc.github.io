@@ -5,7 +5,18 @@ import json, urllib, re
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    events = Event.objects.filter(event_date__gte=timezone.now()).order_by('event_date')
+    # events = Event.objects.filter(event_date__gte=timezone.now()).order_by('event_date')
+    events_req = urllib.request.Request('http://hq.vatme.net/api/events/vacc/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
+    events_html = urllib.request.urlopen(events_req).read()
+    events_list = json.loads(events_html)
+    events = []
+    for i in range(3):
+        e = Event()
+        e.id = events_list[i]['id']
+        e.title = events_list[i]['name']
+        e.banner = events_list[i]['bannerLink']
+        e.description = events_list[i]['description']
+        events.append(e)
     openurl = urllib.request.urlopen('http://eu.data.vatsim.net/vatsim-data.json')
     if(openurl.getcode() == 200):
         data = openurl.read()

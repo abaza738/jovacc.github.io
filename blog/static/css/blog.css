@@ -8,13 +8,17 @@
 body {
     font-family: 'Dosis', sans-serif;
 }
-.vatsim-stats {
+.vatsim-stats .vatsim-event {
     text-decoration: none;
     color: rgb(110, 146, 255);
 }
 .vatsim-stats:hover{
     text-decoration: none;
     color: white;
+}
+.vatsim-event:hover {
+    text-decoration: none;
+    color: black;
 }
 .fa {
     padding: 10px;

@@ -54,11 +54,9 @@
             <div class="col-sm-4">
                 <h3>Events</h3>
                 <div>
-                    <ul>
-                        {% for event in events %}
-                            <li><a href="/"> {{ event.title }} </a></li>
-                        {% endfor %}
-                    </ul>
+                    {% for event in events %}
+                        <p><a class="vatsim-event" href="https://hq.vatme.net/event/view/{{ event.id }}" target="/"> {{ event.title }} </a></p>
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-sm-4">
@@ -72,7 +70,8 @@
     </div>
     <div class="row">
         <div class="container-md col-sm-6 text-center table-responsive">
-            <table id="pilot-table" class="table table-dark table-hover">
+            <table id="pilot-table" class="table table-dark table-striped table-hover">
+                <caption style="caption-side: top;">Flights</caption>
                 <tr>
                     <th><i class="material-icons" style="font-size:11px;color: rgb(110, 146, 253);">info_outline</i> VATSIM CID</th>
                     <th><i class="material-icons" style="font-size:11px;color:rgb(110, 146, 253)">person</i> Name</th>
@@ -82,17 +81,18 @@
                 </tr>
                 {% for pilot in online_pilots %}
                     <tr>
-                        <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ pilot.cid }}">{{ pilot.cid }}</a></td>
+                        <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ pilot.cid }}" target="/">{{ pilot.cid }}</a></td>
                         <td>{{ pilot.name }}</td>
                         <td><strong>{{ pilot.callsign }}</strong></td>
-                        <td>{{ pilot.departure }}</td>
-                        <td>{{ pilot.arrival }}</td>
+                        <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.departure }}" target="/">{{ pilot.departure }}</a></td>
+                        <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.arrival }}" target="/">{{ pilot.arrival }}</a></td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
         <div class="container-md col-sm-6 text-center table-responsive">
-            <table id="atc-table" class="table table-dark table-hover">
+            <table id="atc-table" class="table table-dark table-striped table-hover">
+                <caption style="caption-side: top;">Air Traffic Control</caption>
                 <tr>
                     <th><i class="material-icons" style="font-size:11px;color: rgb(110, 146, 253);">info_outline</i> VATSIM CID</th>
                     <th><i class="material-icons" style="font-size:11px;color:rgb(110, 146, 253)">person</i> Name</th>
@@ -101,7 +101,7 @@
                 </tr>
                 {% for atc in online_atc %}
                     <tr>
-                        <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ atc.cid }}">{{ atc.cid }}</a></td>
+                        <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ atc.cid }}" target="/">{{ atc.cid }}</a></td>
                         <td>{{ atc.name }}</td>
                         <td><strong>{{ atc.callsign }}</strong></td>
                         <td>{{ atc.frequency }}</td>
@@ -109,6 +109,9 @@
                 {% endfor %}
             </table>
         </div>
+    </div>
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1>News</h1>
     </div>
     <div id="blog-posts" class="container-fluid">
         {% for post in posts %}
