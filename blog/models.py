@@ -29,7 +29,7 @@ class Member(models.Model):
         return self.cid+self.callsign
 
 class ATCConnection(Member):
-    frequency = models.IntegerField()
+    frequency = models.IntegerField(null=True)
 
 
 class PilotConnection(Member):

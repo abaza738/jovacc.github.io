@@ -15,7 +15,7 @@ def post_list(request):
         online_pilots = []
         online_atc = []
         for i in pilots:
-            if( "EG" in i['plan']['departure'] or "EG" in i['plan']['arrival']):
+            if( "OJ" in i['plan']['departure'] or "OJ" in i['plan']['arrival']):
                 p = PilotConnection()
                 p.cid = i['member']['cid']
                 p.name = i['member']['name']
@@ -24,12 +24,12 @@ def post_list(request):
                 p.callsign = i['callsign']
                 online_pilots.append(p)
         for i in atc:
-            if( "EG" in i['callsign'] ):
+            if( "OJ" in i['callsign'] or "AMM" in i['callsign']):
                 a = ATCConnection()
                 a.cid = i['member']['cid']
                 a.name = i['member']['name']
                 a.callsign = i['callsign']
-                a.frequency = i['frequency']
+                a.frequency = (i['frequency']+100000)/1000
                 online_atc.append(a)
     else:
         print('Error loading from JSON datafeed')

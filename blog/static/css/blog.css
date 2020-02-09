@@ -8,6 +8,15 @@
 body {
     font-family: 'Dosis', sans-serif;
 }
+.vatsim-stats {
+    text-decoration: none;
+    color: royalblue;
+}
+.vatsim-stats:hover{
+    text-decoration: none;
+    font-weight: 600;
+    color: white;
+}
 .fa {
     padding: 10px;
     text-align: center;
