@@ -3,18 +3,14 @@ from django.conf import settings
 from django.db.models import Manager
 from django.utils import timezone
 
-class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class News(models.Model):
+    news_id = models.CharField(max_length=4)
+    author = models.CharField(max_length=50)
+    author_cid = models.CharField(max_length=8)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-
     objects = Manager()
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
     
     def __str__(self):
         return self.title
