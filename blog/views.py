@@ -3,7 +3,7 @@ from .models import News, Event, PilotConnection, ATCConnection, Member, Staff
 from django.utils import timezone
 import json, urllib.request, re, datetime
 
-def post_list(request):
+def home(request):
     # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     # events = Event.objects.filter(event_date__gte=timezone.now()).order_by('event_date')
     news_req = urllib.request.Request('http://hq.vatme.net/api/news/vacc/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
@@ -14,7 +14,8 @@ def post_list(request):
     news_list = json.loads(news_html)
     events = []
     news = []
-    for i in range(3):
+    i = 3
+    while(i > 0 ):
         e = Event()
         e.id = events_list[i]['id']
         e.title = events_list[i]['name']
@@ -31,7 +32,6 @@ def post_list(request):
         author_html = urllib.request.urlopen(author_req).read()
         author_dict = json.loads(author_html)
         n.author = author_dict['firstname']+" "+author_dict['lastname']
-        # n.created_date = datetime.datetime.strptime(news_list[k]['timestamp']['date'].split('.000000')[0], "%Y-%m-%d %H:%M:%S")
         n.created_date = news_list[k]['timestamp']['date'].split('.000000')[0]
         n.text = news_list[k]['news']
         news.append(n)
@@ -64,13 +64,11 @@ def post_list(request):
     else:
         print('Error loading from JSON datafeed')
 
-    return render(request, 'blog/post_list.html', {'events': events, 'news': news, 'online_pilots': online_pilots, 'online_atc': online_atc})
+    return render(request, 'blog/home.html', {'events': events, 'news': news, 'online_pilots': online_pilots, 'online_atc': online_atc})
 
 def staff(request):
     req = urllib.request.Request('http://hq.vatme.net/api/vacc/staff/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
     html = urllib.request.urlopen(req).read()
-    # openurl = urllib.request.urlopen('http://hq.vatme.net/api/vacc/staff/OJAC')
-    # data = html.read()
     main_list = json.loads(html)
     staff_list = []
     for guy in main_list:

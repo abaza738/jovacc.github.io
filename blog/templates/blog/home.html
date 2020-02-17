@@ -69,48 +69,56 @@
         <h1>Online Activity</h1>
     </div>
     <div class="row">
-        <div class="container-md col-sm-6 text-center table-responsive">
-            <table id="pilot-table" class="table table-dark table-striped table-hover">
+        <div class="container-md col-sm-6 table-responsive">
+            <table id="PilotTable" class="table table-dark table-striped table-hover text-center">
                 <caption style="caption-side: top;">Flights</caption>
-                <tr>
-                    <th><i class="material-icons my-icons-dark">info_outline</i> VATSIM CID</th>
-                    <th><i class="material-icons my-icons-dark">person</i> Name</th>
-                    <th><i class="material-icons my-icons-dark">gps_fixed</i> Callsign</th>
-                    <th><i class="material-icons my-icons-dark">flight_takeoff</i> From</th>
-                    <th><i class="material-icons my-icons-dark">flight_land</i> To </th>
-                </tr>
-                {% for pilot in online_pilots %}
+                <thead>
                     <tr>
-                        <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ pilot.cid }}" target="/">{{ pilot.cid }}</a></td>
-                        <td>{{ pilot.name }}</td>
-                        <td><strong>{{ pilot.callsign }}</strong></td>
-                        <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.departure }}" target="/">{{ pilot.departure }}</a></td>
-                        <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.arrival }}" target="/">{{ pilot.arrival }}</a></td>
-                    {% empty %}
-                        <td colspan="5">Looks like no one's flying here!</td>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">info_outline</i> VATSIM CID</th>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">person</i> Name</th>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">gps_fixed</i> Callsign</th>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">flight_takeoff</i> From</th>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">flight_land</i> To </th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for pilot in online_pilots %}
+                        <tr>
+                            <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ pilot.cid }}" target="/">{{ pilot.cid }}</a></td>
+                            <td>{{ pilot.name }}</td>
+                            <td><strong>{{ pilot.callsign }}</strong></td>
+                            <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.departure }}" target="/">{{ pilot.departure }}</a></td>
+                            <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.arrival }}" target="/">{{ pilot.arrival }}</a></td>
+                        {% empty %}
+                            <td colspan="5">No online flights <em>at this time</em></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
-        <div class="container-md col-sm-6 text-center table-responsive">
-            <table id="atc-table" class="table table-dark table-striped table-hover">
+        <div class="container-md col-sm-6 table-responsive">
+            <table id="ATCTable" class="table table-dark table-striped table-hover text-center">
                 <caption style="caption-side: top;">Air Traffic Control</caption>
-                <tr>
-                    <th><i class="material-icons my-icons-dark">info_outline</i> VATSIM CID</th>
-                    <th><i class="material-icons my-icons-dark">person</i> Name</th>
-                    <th><i class="material-icons my-icons-dark">gps_fixed</i> Callsign</th>
-                    <th><i class="material-icons my-icons-dark">headset_mic</i> Frequency</th>
-                </tr>
-                {% for atc in online_atc %}
+                <thead>
                     <tr>
-                        <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ atc.cid }}" target="/">{{ atc.cid }}</a></td>
-                        <td>{{ atc.name }}</td>
-                        <td><strong>{{ atc.callsign }}</strong></td>
-                        <td>{{ atc.frequency }}</td>
-                    {% empty %}
-                        <td colspan="4">Looks like no one's controlling now!</td>
+                        <th><i class="material-icons my-icons-dark">info_outline</i> VATSIM CID</th>
+                        <th><i class="material-icons my-icons-dark">person</i> Name</th>
+                        <th><i class="material-icons my-icons-dark">gps_fixed</i> Callsign</th>
+                        <th><i class="material-icons my-icons-dark">headset_mic</i> Frequency</th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for atc in online_atc %}
+                        <tr>
+                            <td><a class="vatsim-stats" href="https://stats.vatsim.net/search_id.php?id={{ atc.cid }}" target="/">{{ atc.cid }}</a></td>
+                            <td>{{ atc.name }}</td>
+                            <td><strong>{{ atc.callsign }}</strong></td>
+                            <td>{{ atc.frequency }}</td>
+                        {% empty %}
+                            <td colspan="4">No online ATC <em>at this time</em></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>

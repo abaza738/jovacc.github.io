@@ -7,7 +7,7 @@
 <div class="container container-fluid">
     {% for news_item in news %}
         <h2 class="jumbotron jumbotron-fluid text-center" style="font-weight: 800;">{{ news_item.title }}</h2>
-        <span class="text-muted text-center"><i class="fa fa-clock-o"></i>Published on {{ news_item.created_date }}, by <a href="https://hq.vatme.net/user/{{ news_item.author_cid }}">{{ news_item.author }}</a></span>
+        <span class="text-muted text-center"><i class="fa fa-clock-o"></i>Published on <strong>{{ news_item.created_date }}</strong>, by <a href="https://hq.vatme.net/user/{{ news_item.author_cid }}">{{ news_item.author }}</a></span>
         <p>{{ news_item.text|safe }}</p>
         <div class="dropdown-divider">
         </div>
