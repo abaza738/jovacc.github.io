@@ -15,13 +15,14 @@ def home(request):
     events = []
     news = []
     i = 3
-    while(i > 0 ):
+    while(i > 0):
         e = Event()
         e.id = events_list[i]['id']
         e.title = events_list[i]['name']
         e.banner = events_list[i]['bannerLink']
         e.description = events_list[i]['description']
         events.append(e)
+        i -= 1
     for k in range(3):
         n = News()
         n.news_id = news_list[k]['id']
