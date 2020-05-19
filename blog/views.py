@@ -4,8 +4,6 @@ from django.utils import timezone
 import json, urllib.request, re, datetime
 
 def home(request):
-    # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    # events = Event.objects.filter(event_date__gte=timezone.now()).order_by('event_date')
     news_req = urllib.request.Request('http://hq.vatme.net/api/news/vacc/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
     events_req = urllib.request.Request('http://hq.vatme.net/api/events/vacc/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
     events_html = urllib.request.urlopen(events_req).read()
@@ -37,28 +35,33 @@ def home(request):
         n.text = news_list[k]['news']
         news.append(n)
     
-    openurl = urllib.request.urlopen('http://eu.data.vatsim.net/vatsim-data.json')
-    if(openurl.getcode() == 200):
-        data = openurl.read()
+    connections_url = urllib.request.urlopen('http://eu.data.vatsim.net/vatsim-data.json')
+    if(connections_url.getcode() == 200):
+        data = connections_url.read()
         vatsim_datafeed = json.loads(data)
-        pilots = vatsim_datafeed['pilots']
-        atc = vatsim_datafeed['controllers']
+        pilots = []
+        atc = []
         online_pilots = []
         online_atc = []
+        for i in vatsim_datafeed:
+            if( i.clienttype.toUpper() == "PILOT" ):
+                pilots.append(i)
+            elif( i.clienttype.toUpper() == "ATC" ):
+                atc.append(i)
         for i in pilots:
-            if( re.match(r"^OJ[A-Z]{2}$", i['plan']['departure']) or re.match(r"^OJ[A-Z]{2}$", i['plan']['arrival'])):
+            if( re.match(r"^OJ[A-Z]{2}$", i['planned_depairport']) or re.match(r"^OJ[A-Z]{2}$", i['planned_destairport'])):
                 p = PilotConnection()
-                p.cid = i['member']['cid']
-                p.name = i['member']['name']
-                p.departure = i['plan']['departure']
-                p.arrival = i['plan']['arrival']
+                p.cid = i['cid']
+                p.name = i['realname']
+                p.departure = i['planned_depairport']
+                p.arrival = i['planned_destairport']
                 p.callsign = i['callsign']
                 online_pilots.append(p)
         for i in atc:
             if( re.match(r"(^OJ[A-Z]{2}|^AMM_)", i['callsign'])):
                 a = ATCConnection()
-                a.cid = i['member']['cid']
-                a.name = i['member']['name']
+                a.cid = i['cid']
+                a.name = i['realname']
                 a.callsign = i['callsign']
                 a.frequency = (i['frequency']+100000)/1000
                 online_atc.append(a)
