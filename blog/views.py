@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import News, Event, PilotConnection, ATCConnection, Member, Staff
 from django.utils import timezone
-import json, urllib.request, re, datetime
+import json, urllib.request, re, datetime, dateutil.parser
 
 def home(request):
     news_req = urllib.request.Request('http://hq.vatme.net/api/news/vacc/OJAC', headers={'User-Agent': 'Mozilla/5.0'})
@@ -38,32 +38,37 @@ def home(request):
     connections_url = urllib.request.urlopen('http://eu.data.vatsim.net/vatsim-data.json')
     if(connections_url.getcode() == 200):
         data = connections_url.read()
-        vatsim_datafeed = json.loads(data)
+        vatsim_datafeed = json.loads(data)['clients']
         pilots = []
         atc = []
         online_pilots = []
         online_atc = []
         for i in vatsim_datafeed:
-            if( i.clienttype.toUpper() == "PILOT" ):
+            if( i['clienttype'] == "PILOT" ):
                 pilots.append(i)
-            elif( i.clienttype.toUpper() == "ATC" ):
+            elif( i['clienttype'] == "ATC" ):
                 atc.append(i)
         for i in pilots:
-            if( re.match(r"^OJ[A-Z]{2}$", i['planned_depairport']) or re.match(r"^OJ[A-Z]{2}$", i['planned_destairport'])):
+            if( re.match(r"^OJ[A-Z]{2}$", str(i['planned_depairport'])) or re.match(r"^OJ[A-Z]{2}$", str(i['planned_destairport']))):
                 p = PilotConnection()
                 p.cid = i['cid']
                 p.name = i['realname']
                 p.departure = i['planned_depairport']
                 p.arrival = i['planned_destairport']
                 p.callsign = i['callsign']
+                p.altitude = i['altitude']
+                delta_time = datetime.datetime.now().replace(tzinfo=dateutil.tz.gettz('Asia/Amman')) - dateutil.parser.parse(i['time_logon'])
+                p.time_online = datetime.datetime.strptime(delta_time.__str__(), '%H:%M:%S.%f').strftime('%Hh %Mm %Ss')
                 online_pilots.append(p)
         for i in atc:
-            if( re.match(r"(^OJ[A-Z]{2}|^AMM_)", i['callsign'])):
+            if( re.match(r"(^OJ[A-Z]{2}|^AMM_)", str(i['callsign']))):
                 a = ATCConnection()
                 a.cid = i['cid']
                 a.name = i['realname']
                 a.callsign = i['callsign']
                 a.frequency = (i['frequency']+100000)/1000
+                delta_time = datetime.datetime.now().replace(tzinfo=dateutil.tz.gettz('Asia/Amman')) - dateutil.parser.parse(i['time_logon'])
+                p.time_online = datetime.datetime.strptime(delta_time.__str__(), '%H:%M:%S.%f').strftime('%Hh %Mm %Ss')
                 online_atc.append(a)
     else:
         print('Error loading from JSON datafeed')

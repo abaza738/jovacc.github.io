@@ -19,6 +19,7 @@ class Member(models.Model):
     cid = models.IntegerField(unique=True, null=False)
     name = models.CharField(max_length=80)
     callsign = models.CharField(max_length=40)
+    time_online = models.TimeField()
     objects = Manager()
 
     def __str__(self):
@@ -31,6 +32,7 @@ class ATCConnection(Member):
 class PilotConnection(Member):
     origin = models.CharField(max_length=4, default="-")
     destination = models.CharField(max_length=4, default="-")
+    altitude = models.CharField(max_length=5, default="0")
 
 class Staff(Member):
     position = models.CharField(max_length=42, default="-")

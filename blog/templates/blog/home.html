@@ -79,6 +79,8 @@
                         <th class="th-sm"><i class="material-icons my-icons-dark">gps_fixed</i> Callsign</th>
                         <th class="th-sm"><i class="material-icons my-icons-dark">flight_takeoff</i> From</th>
                         <th class="th-sm"><i class="material-icons my-icons-dark">flight_land</i> To </th>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">chrono</i> Altitude </th>
+                        <th class="th-sm"><i class="material-icons my-icons-dark">time</i> Time Online </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,8 +91,10 @@
                             <td><strong>{{ pilot.callsign }}</strong></td>
                             <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.departure }}" target="/">{{ pilot.departure }}</a></td>
                             <td><a class="vatsim-stats" href="https://simaware.ca/airport/{{ pilot.arrival }}" target="/">{{ pilot.arrival }}</a></td>
+                            <td>{{ pilot.altitude }}</td>
+                            <td>{{ pilot.time_online }}</td>
                         {% empty %}
-                            <td colspan="5">No online flights <em>at this time</em></td>
+                            <td colspan="7">No online flights <em>at this time</em></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -105,6 +109,7 @@
                         <th><i class="material-icons my-icons-dark">person</i> Name</th>
                         <th><i class="material-icons my-icons-dark">gps_fixed</i> Callsign</th>
                         <th><i class="material-icons my-icons-dark">headset_mic</i> Frequency</th>
+                        <th><i class="material-icons my-icons-dark">time</i> Time Online</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,8 +119,9 @@
                             <td>{{ atc.name }}</td>
                             <td><strong>{{ atc.callsign }}</strong></td>
                             <td>{{ atc.frequency }}</td>
+                            <td>{{ atc.time_online }}</td>
                         {% empty %}
-                            <td colspan="4">No online ATC <em>at this time</em></td>
+                            <td colspan="5">No online ATC <em>at this time</em></td>
                         </tr>
                     {% endfor %}
                 </tbody>
