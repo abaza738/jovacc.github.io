@@ -57,7 +57,11 @@ def home(request):
                 p.arrival = i['planned_destairport']
                 p.callsign = i['callsign']
                 p.altitude = i['altitude']
-                delta_time = datetime.datetime.now().replace(tzinfo=dateutil.tz.gettz('Asia/Amman')) - dateutil.parser.parse(i['time_logon'])
+
+                #currentTime = datetime.datetime.utcnow()
+                #planeOnTime = dateutil.parser.parse(i['time_logon']).replace(tzinfo=None)
+
+                delta_time = datetime.datetime.utcnow() - dateutil.parser.parse(i['time_logon']).replace(tzinfo=None)
                 p.time_online = datetime.datetime.strptime(delta_time.__str__(), '%H:%M:%S.%f').strftime('%Hh %Mm %Ss')
                 online_pilots.append(p)
         for i in atc:
@@ -67,7 +71,11 @@ def home(request):
                 a.name = i['realname']
                 a.callsign = i['callsign']
                 a.frequency = (i['frequency']+100000)/1000
-                delta_time = datetime.datetime.now().replace(tzinfo=dateutil.tz.gettz('Asia/Amman')) - dateutil.parser.parse(i['time_logon'])
+
+                #currentTime = datetime.datetime.utcnow()
+                #planeOnTime = dateutil.parser.parse(i['time_logon']).replace(tzinfo=None)
+                
+                delta_time = datetime.datetime.utcnow() - dateutil.parser.parse(i['time_logon']).replace(tzinfo=None)
                 p.time_online = datetime.datetime.strptime(delta_time.__str__(), '%H:%M:%S.%f').strftime('%Hh %Mm %Ss')
                 online_atc.append(a)
     else:
